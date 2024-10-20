@@ -2,18 +2,24 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
 
     public int lives = 3;
 
+    public Text livestext;
+
     public void LoseHealth()
     {
 
         lives--;
+        ActualizarTexto();
 
-        if(lives <= 0)
+
+
+        if (lives <= 0)
         {
 
             SceneManager.LoadScene("GameOver");
@@ -49,7 +55,11 @@ public class GameManager : MonoBehaviour
 
     }
 
-
+    public void ActualizarTexto()
+    {
+        // Asigna el valor de la variable "Lives" al texto de la UI
+        livestext.text = "x" + lives.ToString();
+    }
 
 
 }
