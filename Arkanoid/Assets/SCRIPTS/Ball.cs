@@ -38,6 +38,13 @@ public class Ball : MonoBehaviour
 
         ballbody2D.velocity = Vector2.zero;
 
+        Invoke("StartBall", 2f);       
+
+    }
+
+    public void StartBall()
+    {
+
         velocity.x = Random.Range(-1f, 1f);
 
         velocity.y = 1;
