@@ -49,7 +49,7 @@ public class Ball : MonoBehaviour
 
             Debug.Log(ballbody2D.velocity);
 
-          
+            VelocityFixed();
 
         }
 
@@ -98,9 +98,7 @@ public class Ball : MonoBehaviour
 
         velocity.y = 1;
 
-        ballbody2D.AddForce(velocity * speed);
-
-        
+        ballbody2D.AddForce(velocity * speed);        
 
     }
 

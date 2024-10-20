@@ -13,6 +13,7 @@ public class Brick : MonoBehaviour
             {
 
             FindObjectOfType<GameManager>().CheckLevelCompleted();
+            FindObjectOfType<GameManager>().MorePuntuation();
             Destroy(gameObject);
             
         }
