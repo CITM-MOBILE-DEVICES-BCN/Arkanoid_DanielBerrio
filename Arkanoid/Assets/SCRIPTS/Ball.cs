@@ -43,11 +43,11 @@ public class Ball : MonoBehaviour
             if(multiplayer<=1.5)
             multiplayer += 0.05f;
 
-            Debug.Log(multiplayer);
+            Debug.Log("MULTIPLAYER " +multiplayer);
 
             ballbody2D.velocity = new Vector2(ballbody2D.velocity.x * multiplayer, ballbody2D.velocity.y  * multiplayer);
 
-            Debug.Log(ballbody2D.velocity);
+            Debug.Log("VELOCITY " +ballbody2D.velocity);
 
             VelocityFixed();
 

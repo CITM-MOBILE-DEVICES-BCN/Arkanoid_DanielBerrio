@@ -7,24 +7,21 @@ public class JsonSerializer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
     }
-
-    // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     [System.Serializable]
 
-    public class PlayerData 
+    public class PlayerData
     {
         public int highScore;
         public int currentScore;
     }
 
-    public class TestSerialization 
+    public class TestSerialization
     {
         public void SerializePlayerData()
         {
@@ -46,5 +43,6 @@ public class JsonSerializer : MonoBehaviour
         }
 
     }
-
 }
+
+

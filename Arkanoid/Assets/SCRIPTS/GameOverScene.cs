@@ -10,6 +10,7 @@ public class GameOverScene : MonoBehaviour
     {
 
         SceneManager.LoadScene("Level1");
+        Time.timeScale = 1f; // Vuelve el tiempo a la normalidadw
 
     }
 
