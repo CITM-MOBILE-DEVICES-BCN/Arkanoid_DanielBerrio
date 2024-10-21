@@ -9,7 +9,7 @@ public class GameManager : MonoBehaviour
 
     public int lives = 3;
     public int points = 0;
-    public int highscore = 0;
+    public int record = 0;
 
     public Text livestext;
     public Text pointstext;
@@ -46,12 +46,12 @@ public class GameManager : MonoBehaviour
         
 
         //CAMBIAR LA MAXIMA
-       if(highscore <= points)
+       if(record <= points)
         {
 
-            highscore = points;
+            record = points;
             ActualizarHigh();
-            Debug.Log("HIGHSCORE " +highscore);
+            Debug.Log("HIGHSCORE " +record);
 
         }
         
@@ -96,7 +96,7 @@ public class GameManager : MonoBehaviour
     public void ActualizarHigh()
     {
         // Asigna el valor de la variable "Lives" al texto de la UI
-        hightext.text = "HighScore " + highscore.ToString();
+        hightext.text = "HighScore " + record.ToString();
     }
 
   

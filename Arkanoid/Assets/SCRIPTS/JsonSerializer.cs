@@ -1,48 +1,75 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class JsonSerializer : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-    }
-    void Update()
-    {
-
-    }
+   
 
     [System.Serializable]
 
     public class PlayerData
     {
+        public int  currentScore;
         public int highScore;
-        public int currentScore;
+        public int lives;
+        public int scena;
     }
 
-    public class TestSerialization
-    {
+   
+
+       public PlayerData facts = new PlayerData();
         public void SerializePlayerData()
+        {           
+
+            facts.highScore = FindObjectOfType<GameManager>().record;
+            facts.currentScore = FindObjectOfType<GameManager>().points;
+            facts.lives = FindObjectOfType<GameManager>().lives;
+            facts.scena = SceneManager.GetActiveScene().buildIndex;
+
+        string json = JsonUtility.ToJson(facts);
+            
+
+            PlayerData loadedData = JsonUtility.FromJson<PlayerData>(json);          
+
+            
+            
+        }
+       
+        public void DeSerializePlayerData()
         {
-            PlayerData facts = new PlayerData();
+            // Asegúrate de que el archivo JSON realmente existe y contiene datos válidos
+            string json = PlayerPrefs.GetString("PlayerData", "");  // O carga desde un archivo
 
-            facts.highScore = 0;
-            facts.currentScore = 0;
+            if (!string.IsNullOrEmpty(json))
+            {
+                PlayerData loadedData = JsonUtility.FromJson<PlayerData>(json);
 
-            string json = JsonUtility.ToJson(facts);
-            Debug.Log(json);
+                SceneManager.LoadScene(loadedData.scena);
 
-            PlayerData loadedData = JsonUtility.FromJson<PlayerData>(json);
-
-            //highScore = loadedData.highScore;
-            //currentScore = loadedData.currentScore;
-
-            Debug.Log("HIGH" + loadedData.highScore + "CURRENT" + loadedData.currentScore);
-
+                GameManager gameManager = FindObjectOfType<GameManager>();
+                if (gameManager != null)
+                {
+                    gameManager.record = loadedData.highScore;
+                    gameManager.points = loadedData.currentScore;
+                    gameManager.lives = loadedData.lives;
+                }
+                else
+                {
+                    Debug.LogError("GameManager not found in the scene!");
+                }
+            }
+            else
+            {
+                Debug.LogError("No saved data found!");
+            }
         }
 
-    }
+    
+
+    
 }
 
 

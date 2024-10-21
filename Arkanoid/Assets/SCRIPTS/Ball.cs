@@ -16,6 +16,9 @@ public class Ball : MonoBehaviour
 
     Vector2 startPosition;
 
+    public AudioSource audioSource;
+
+    public AudioClip playerSound, brickSound, wallSound, deadSound;
 
     void Start()
     {
@@ -27,12 +30,19 @@ public class Ball : MonoBehaviour
 
     }
 
+
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.CompareTag("DeadZone"))
         {
 
+            audioSource.clip = deadSound;
+            audioSource.Play();
+
             FindObjectOfType<GameManager>().LoseHealth();
+
+           
 
         }
 
@@ -40,16 +50,17 @@ public class Ball : MonoBehaviour
         {
             Debug.Log(ballbody2D.velocity);
 
-            if(multiplayer<=1.5)
+            if(multiplayer <=1.55f)
             multiplayer += 0.05f;
+            
 
-            Debug.Log("MULTIPLAYER " +multiplayer);
+            ballbody2D.velocity = new Vector2(ballbody2D.velocity.x * multiplayer, ballbody2D.velocity.y * multiplayer);
 
-            ballbody2D.velocity = new Vector2(ballbody2D.velocity.x * multiplayer, ballbody2D.velocity.y  * multiplayer);
-
-            Debug.Log("VELOCITY " +ballbody2D.velocity);
-
+            
             VelocityFixed();
+
+            audioSource.clip = brickSound;
+            audioSource.Play();
 
         }
 
@@ -78,6 +89,20 @@ public class Ball : MonoBehaviour
             }
 
             multiplayer = 1f; // Resetea el multiplicador si es necesario
+
+            VelocityFixed();
+
+            audioSource.clip = playerSound;
+            audioSource.Play();
+        }
+
+        if (collision.gameObject.CompareTag("Wall"))
+        {
+
+            VelocityFixed();
+            audioSource.clip = wallSound;
+            audioSource.Play();
+
         }
     }
 
