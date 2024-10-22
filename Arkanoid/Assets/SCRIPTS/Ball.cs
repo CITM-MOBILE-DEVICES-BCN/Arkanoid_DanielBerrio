@@ -10,7 +10,7 @@ public class Ball : MonoBehaviour
 
     public float speed = 300;
 
-    private float multiplayer = 1;
+    private float multiplayer = 1.01f;
 
     private Vector2 velocity;
 
@@ -50,8 +50,8 @@ public class Ball : MonoBehaviour
         {
             Debug.Log(ballbody2D.velocity);
 
-            if(multiplayer <=1.55f)
-            multiplayer += 0.05f;
+            
+            
             
 
             ballbody2D.velocity = new Vector2(ballbody2D.velocity.x * multiplayer, ballbody2D.velocity.y * multiplayer);
@@ -88,7 +88,7 @@ public class Ball : MonoBehaviour
                 ballbody2D.velocity = new Vector2(ballbody2D.velocity.x, Mathf.Abs(ballbody2D.velocity.y));
             }
 
-            multiplayer = 1f; // Resetea el multiplicador si es necesario
+          
 
             VelocityFixed();
 

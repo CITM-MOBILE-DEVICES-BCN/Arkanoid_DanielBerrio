@@ -7,9 +7,9 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
 
-    public int lives = 3;
-    public int points = 0;
-    public int record = 0;
+   [SerializeField] public int lives = 3;
+    [SerializeField] public int points = 0;
+    [SerializeField] public int record = 0;
 
     public Text livestext;
     public Text pointstext;
@@ -75,9 +75,21 @@ public class GameManager : MonoBehaviour
     public void CheckLevelCompleted()
     {
 
-        if (transform.childCount <= 1)
+        Debug.Log("Tamo en Levcel compelted");
+
+        if (transform.childCount <= 1)                      
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
+            Debug.Log("Los has matao");
+
+            if (SceneManager.GetActiveScene().name == "Level1")
+            {
+                SceneManager.LoadScene("Level2");
+            }
+            else if (SceneManager.GetActiveScene().name == "Level2")
+            {
+                SceneManager.LoadScene("Level1");
+            }
+
         }
 
     }

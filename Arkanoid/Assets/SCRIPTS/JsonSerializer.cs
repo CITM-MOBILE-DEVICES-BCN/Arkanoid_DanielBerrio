@@ -15,7 +15,7 @@ public class JsonSerializer : MonoBehaviour
         public int  currentScore;
         public int highScore;
         public int lives;
-        public int scena;
+        public string scena;
     }
 
    
@@ -27,7 +27,7 @@ public class JsonSerializer : MonoBehaviour
             facts.highScore = FindObjectOfType<GameManager>().record;
             facts.currentScore = FindObjectOfType<GameManager>().points;
             facts.lives = FindObjectOfType<GameManager>().lives;
-            facts.scena = SceneManager.GetActiveScene().buildIndex;
+            facts.scena = SceneManager.GetActiveScene().name;
 
         string json = JsonUtility.ToJson(facts);
             

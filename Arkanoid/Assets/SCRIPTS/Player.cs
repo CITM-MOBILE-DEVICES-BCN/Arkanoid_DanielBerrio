@@ -16,9 +16,13 @@ public class Player : MonoBehaviour
     public float minX = -10f;
     public float maxX = 10f;
 
+   
+
     private Vector2 direction;
 
     Vector2 startPosition;
+
+    public bool autoMode = false;
 
     private void Start()
     {
@@ -29,11 +33,26 @@ public class Player : MonoBehaviour
     void Update()
     {
 
+        if(autoMode == false)
+        {
         float targetX = Mathf.Lerp(minX, maxX, movementSlider.value);
-
        
         Vector2 newPosition = new Vector2(targetX, transform.position.y);
         playerBody2D.MovePosition(newPosition);
+
+        }else if(autoMode == true)
+        {
+            float targetBall = FindObjectOfType<Ball>().transform.position.x;
+
+            Vector2 newPosition = new Vector2(targetBall, transform.position.y);
+
+            playerBody2D.MovePosition(newPosition);
+
+        }
+        
+
+
+        //PARA MOVER AL PLAYER CON LAS FLECHITAS
 
         //inputValue = Input.GetAxisRaw("Horizontal");
 
@@ -60,5 +79,12 @@ public class Player : MonoBehaviour
     {
         transform.position = startPosition;
         playerBody2D.velocity = Vector2.zero;
+    }
+
+    public void AutoMode()
+    {
+
+        autoMode = !autoMode;
+
     }
 }
