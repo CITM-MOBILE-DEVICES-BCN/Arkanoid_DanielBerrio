@@ -11,16 +11,19 @@ public class GameManager : MonoBehaviour
     [SerializeField] public int points = 0;
     [SerializeField] public int record = 0;
 
-    public Text livestext;
-    public Text pointstext;
-    public Text hightext;
+    public bool winlvl = false;
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
 
     public void LoseHealth()
     {
 
         lives--;
-        ActualizarTexto();
-
+        
+        FindObjectOfType<TextManager>().ActualizarTexto();
 
 
         if (lives <= 0)
@@ -50,17 +53,23 @@ public class GameManager : MonoBehaviour
         {
 
             record = points;
-            ActualizarHigh();
+            FindObjectOfType<TextManager>().ActualizarHigh();
             Debug.Log("HIGHSCORE " +record);
 
         }
-        
-            
-            
-        
+
+
+
+
 
         //REESCRIBIR UI
-        ActualizarPuntos();       
+        FindObjectOfType<TextManager>().ActualizarPuntos(); 
+        
+           
+
+        
+        
+               
     }
 
 
@@ -75,41 +84,29 @@ public class GameManager : MonoBehaviour
     public void CheckLevelCompleted()
     {
 
-        Debug.Log("Tamo en Levcel compelted");
+        Debug.Log("comprobamo en Levcel compelted");
 
-        if (transform.childCount <= 1)                      
+        if (winlvl == true)
         {
-            Debug.Log("Los has matao");
+            Debug.Log("Cambiemos de nivel");
 
             if (SceneManager.GetActiveScene().name == "Level1")
             {
+                //FindObjectOfType<JsonSerializer>().SerializePlayerData();
+                winlvl = false;
                 SceneManager.LoadScene("Level2");
+
             }
             else if (SceneManager.GetActiveScene().name == "Level2")
             {
+                winlvl = false;
                 SceneManager.LoadScene("Level1");
             }
-
-        }
+            
+        }      
 
     }
 
-    public void ActualizarTexto()
-    {
-        // Asigna el valor de la variable "Lives" al texto de la UI
-        livestext.text = "x" + lives.ToString();
-    }
-
-    public void ActualizarPuntos()
-    {
-        // Asigna el valor de la variable "Lives" al texto de la UI
-        pointstext.text = "Current "+ points.ToString();
-    }
-    public void ActualizarHigh()
-    {
-        // Asigna el valor de la variable "Lives" al texto de la UI
-        hightext.text = "HighScore " + record.ToString();
-    }
-
+  
   
 }

@@ -40,6 +40,7 @@ public class Player : MonoBehaviour
         Vector2 newPosition = new Vector2(targetX, transform.position.y);
         playerBody2D.MovePosition(newPosition);
 
+
         }else if(autoMode == true)
         {
             float targetBall = FindObjectOfType<Ball>().transform.position.x;

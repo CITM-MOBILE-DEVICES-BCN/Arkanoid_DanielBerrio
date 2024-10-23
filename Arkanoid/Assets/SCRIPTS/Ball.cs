@@ -48,12 +48,7 @@ public class Ball : MonoBehaviour
 
         if (collision.gameObject.CompareTag("Brick"))
         {
-            Debug.Log(ballbody2D.velocity);
-
-            
-            
-            
-
+                      
             ballbody2D.velocity = new Vector2(ballbody2D.velocity.x * multiplayer, ballbody2D.velocity.y * multiplayer);
 
             
