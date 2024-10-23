@@ -53,7 +53,7 @@ public class GameManager : MonoBehaviour
         {
 
             record = points;
-            FindObjectOfType<TextManager>().ActualizarHigh();
+            
             Debug.Log("HIGHSCORE " +record);
 
         }
@@ -63,13 +63,12 @@ public class GameManager : MonoBehaviour
 
 
         //REESCRIBIR UI
-        FindObjectOfType<TextManager>().ActualizarPuntos(); 
-        
-           
+        FindObjectOfType<TextManager>().ActualizarPuntos();
+        FindObjectOfType<TextManager>().ActualizarHigh();
 
-        
-        
-               
+
+
+
     }
 
 

@@ -18,6 +18,8 @@ public class GameOverScene : MonoBehaviour
     {
 
         SceneManager.LoadScene("Level1");
+        FindObjectOfType<GameManager>().points = 0;
+        
         Time.timeScale = 1f; // Vuelve el tiempo a la normalidadw
 
     }

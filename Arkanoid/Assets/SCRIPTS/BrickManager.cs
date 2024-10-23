@@ -18,7 +18,12 @@ public class BrickManager : MonoBehaviour
             
        
     
+        }else
+        {
+            FindObjectOfType<GameManager>().winlvl = false;
         }
     }
+
+        
     
 }
