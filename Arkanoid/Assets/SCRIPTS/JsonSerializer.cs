@@ -18,9 +18,13 @@ public class JsonSerializer : MonoBehaviour
         public string scena;
     }
 
-   
+    string filePath;
+    private void Awake()
+    {
+        filePath = Application.persistentDataPath + "/setting.json";
+    }
 
-       public PlayerData facts = new PlayerData();
+    public PlayerData facts = new PlayerData();
         public void SerializePlayerData()
         {           
 

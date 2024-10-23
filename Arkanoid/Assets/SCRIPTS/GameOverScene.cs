@@ -6,11 +6,7 @@ using UnityEngine.SceneManagement;
 public class GameOverScene : MonoBehaviour
 {
 
-    string filePath;
-    private void Awake()
-    {
-        filePath = Application.persistentDataPath + "/setting.json";
-    }
+   
     public void ResetGame()
     {
 
