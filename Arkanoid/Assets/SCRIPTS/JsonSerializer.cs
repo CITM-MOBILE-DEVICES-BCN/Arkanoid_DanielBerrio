@@ -30,13 +30,13 @@ public class JsonSerializer : MonoBehaviour
             facts.scena = SceneManager.GetActiveScene().name;
 
         string json = JsonUtility.ToJson(facts);
-            
+        
 
-            PlayerData loadedData = JsonUtility.FromJson<PlayerData>(json);          
+            PlayerData loadedData = JsonUtility.FromJson<PlayerData>(json);
 
-            
-            
-        }
+        Debug.Log(loadedData);
+
+    }
        
         public void DeSerializePlayerData()
         {
