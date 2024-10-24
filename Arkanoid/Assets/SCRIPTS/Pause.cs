@@ -25,7 +25,7 @@ public class Pause : MonoBehaviour
 
     }
 
-     void PauseGame()
+    public void PauseGame()
     {
         // Pausar el juego
         Time.timeScale = 0f; // Detiene el tiempo
