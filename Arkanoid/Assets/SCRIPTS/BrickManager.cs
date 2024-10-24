@@ -14,7 +14,7 @@ public class BrickManager : MonoBehaviour
             Debug.Log("Los has matao");
 
             FindObjectOfType<GameManager>().winlvl = true;
-            //GameManager.CheckLevelCompleted();
+            FindObjectOfType<GameManager>().CheckLevelCompleted();
             
        
     

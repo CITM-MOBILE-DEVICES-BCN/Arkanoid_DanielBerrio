@@ -18,13 +18,20 @@ public class JsonSerializer : MonoBehaviour
         public string scena;
     }
 
+    string comprobar;
     string filePath;
     private void Awake()
     {
-        filePath = Application.persistentDataPath + "/setting.json";
+        filePath = Application.dataPath + "/SavedFiles/setting.json";
+
+        // Crea la carpeta "SavedFiles" si no existe
+        if (!System.IO.Directory.Exists(Application.dataPath + "/SavedFiles"))
+        {
+            System.IO.Directory.CreateDirectory(Application.dataPath + "/SavedFiles");
+        }
     }
 
-    public PlayerData facts = new PlayerData();
+    public PlayerData facts;
         public void SerializePlayerData()
         {           
 
@@ -32,48 +39,59 @@ public class JsonSerializer : MonoBehaviour
             facts.currentScore = FindObjectOfType<GameManager>().points;
             facts.lives = FindObjectOfType<GameManager>().lives;
             facts.scena = SceneManager.GetActiveScene().name;
+       
 
-        string json = JsonUtility.ToJson(facts);
-        
+        JsonUtility.ToJson(facts);
+        string json = JsonUtility.ToJson(facts);   
 
             PlayerData loadedData = JsonUtility.FromJson<PlayerData>(json);
 
-        Debug.Log(loadedData);
+        System.IO.File.WriteAllText(filePath, json);
+
+        comprobar = loadedData.currentScore + " "+ loadedData.highScore + " " + loadedData.scena + " " + loadedData.lives;
+        Debug.Log(json);
+        Debug.Log("JSON saved at: " + filePath);
 
     }
-       
-        public void DeSerializePlayerData()
+
+    public void DeSerializePlayerData()
+    {
+        if (System.IO.File.Exists(filePath))
         {
-            // Asegúrate de que el archivo JSON realmente existe y contiene datos válidos
-            string json = PlayerPrefs.GetString("PlayerData", "");  // O carga desde un archivo
 
-            if (!string.IsNullOrEmpty(json))
+
+            string json = System.IO.File.ReadAllText(filePath);
+           
+            Debug.Log("Loaded JSON: " + json);  // Verifica que los datos sean correctos
+
+            PlayerData loadedData = JsonUtility.FromJson<PlayerData>(json);
+            // Verificar si el archivo existe
+
+            
+            SceneManager.LoadScene(loadedData.scena);
+
+            GameManager gameManager = FindObjectOfType<GameManager>();
+            if (gameManager != null)
             {
-                PlayerData loadedData = JsonUtility.FromJson<PlayerData>(json);
-
-                SceneManager.LoadScene(loadedData.scena);
-
-                GameManager gameManager = FindObjectOfType<GameManager>();
-                if (gameManager != null)
-                {
-                    gameManager.record = loadedData.highScore;
-                    gameManager.points = loadedData.currentScore;
-                    gameManager.lives = loadedData.lives;
-                }
-                else
-                {
-                    Debug.LogError("GameManager not found in the scene!");
-                }
+                gameManager.record = loadedData.highScore;
+                gameManager.points = loadedData.currentScore;
+                gameManager.lives = loadedData.lives;
             }
             else
             {
-                Debug.LogError("No saved data found!");
+                Debug.LogError("GameManager not found in the scene!");
             }
+            Time.timeScale = 1.0f;  
         }
+        else
+        {
+            Debug.LogError("No saved data found!");
+        }
+    }
 
-    
 
-    
+
+
 }
 
 

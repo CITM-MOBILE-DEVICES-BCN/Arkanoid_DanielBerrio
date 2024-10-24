@@ -7,9 +7,9 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
 
-   [SerializeField] public int lives = 3;
-    [SerializeField] public int points = 0;
-    [SerializeField] public int record = 0;
+    public int lives = 3;
+    public int points = 0;
+    public int record = 0;
 
     public bool winlvl = false;
 
@@ -18,6 +18,31 @@ public class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    private void Start()
+    {
+        // Intentar cargar los datos del archivo JSON
+        JsonSerializer jsonSerializer = FindObjectOfType<JsonSerializer>();
+
+        if (jsonSerializer != null)
+        {
+            jsonSerializer.DeSerializePlayerData();  // Carga los datos guardados
+
+            // Si hay datos cargados, asignar el highscore
+            if (jsonSerializer.facts != null)
+            {
+                record = jsonSerializer.facts.highScore;
+                Debug.Log("Highscore cargado: " + record);
+            }
+            else
+            {
+                Debug.Log("No se ha encontrado un archivo JSON con highscore.");
+            }
+        }
+        else
+        {
+            Debug.LogError("No se encontró JsonSerializer en la escena.");
+        }
+    }
     public void LoseHealth()
     {
 
@@ -100,12 +125,12 @@ public class GameManager : MonoBehaviour
             {
                 winlvl = false;
                 SceneManager.LoadScene("Level1");
+                Debug.Log("Volvemo al primero");
             }
             
         }      
 
     }
 
-  
   
 }
