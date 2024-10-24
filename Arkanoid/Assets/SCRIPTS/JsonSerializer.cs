@@ -44,11 +44,11 @@ public class JsonSerializer : MonoBehaviour
         JsonUtility.ToJson(facts);
         string json = JsonUtility.ToJson(facts);   
 
-            PlayerData loadedData = JsonUtility.FromJson<PlayerData>(json);
+            
 
         System.IO.File.WriteAllText(filePath, json);
 
-        comprobar = loadedData.currentScore + " "+ loadedData.highScore + " " + loadedData.scena + " " + loadedData.lives;
+       
         Debug.Log(json);
         Debug.Log("JSON saved at: " + filePath);
 
@@ -65,8 +65,8 @@ public class JsonSerializer : MonoBehaviour
             Debug.Log("Loaded JSON: " + json);  // Verifica que los datos sean correctos
 
             PlayerData loadedData = JsonUtility.FromJson<PlayerData>(json);
-            // Verificar si el archivo existe
 
+            // Verificar si el archivo existe
             
             SceneManager.LoadScene(loadedData.scena);
 

@@ -9,7 +9,7 @@ public class BrickManager : MonoBehaviour
       
     public void Update()
     {  
-        if (transform.childCount <= 1)                      
+        if (transform.childCount <= 0)                      
         {
             Debug.Log("Los has matao");
 
